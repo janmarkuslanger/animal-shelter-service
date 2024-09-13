@@ -2,6 +2,7 @@ package com.janmarkuslanger.animalshelterapi.controller;
 
 import com.janmarkuslanger.animalshelterapi.model.Animal;
 import com.janmarkuslanger.animalshelterapi.service.AnimalService;
+import com.janmarkuslanger.animalshelterapi.service.VercelService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -9,9 +10,11 @@ import org.springframework.web.bind.annotation.*;
 public class AnimalController {
 
     private final AnimalService animalService;
+    private final VercelService vercelService;
 
-    public AnimalController(AnimalService animalService) {
+    public AnimalController(AnimalService animalService, VercelService vercelService) {
         this.animalService = animalService;
+        this.vercelService = vercelService;
     }
 
     @GetMapping("/")
@@ -27,17 +30,22 @@ public class AnimalController {
     @PostMapping("/")
     public Animal create(@RequestBody Animal animal) {
         Animal newAnimal = new Animal();
-        return animalService.createAnimal(newAnimal);
+        animalService.createAnimal(newAnimal);
+        vercelService.triggerDeployment();
+        return newAnimal;
     }
 
     @PutMapping("/{id}")
     public Animal update(@PathVariable Long id, @RequestBody Animal animal) {
         Animal updatedAnimal = animalService.getAnimal(id);
-        return animalService.updateAnimal(updatedAnimal);
+        animalService.updateAnimal(updatedAnimal);
+        vercelService.triggerDeployment();
+        return updatedAnimal;
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         animalService.deleteAnimal(id);
+        vercelService.triggerDeployment();
     }
 }

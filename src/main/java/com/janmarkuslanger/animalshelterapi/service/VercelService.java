@@ -7,7 +7,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class VercelService {
-
     private final String hookUrl;
 
     @Autowired
