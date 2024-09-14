@@ -1,10 +1,8 @@
-package com.janmarkuslanger.animalshelterapi.service;
+package com.janmarkuslanger.animalshelterservice;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.web.client.RestTemplate;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class VercelServiceTest {
 

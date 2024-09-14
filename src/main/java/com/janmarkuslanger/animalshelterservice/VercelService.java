@@ -1,4 +1,4 @@
-package com.janmarkuslanger.animalshelterapi.service;
+package com.janmarkuslanger.animalshelterservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

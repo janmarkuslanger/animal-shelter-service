@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.janmarkuslanger</groupId>
-	<artifactId>animal-shelter-api</artifactId>
+	<artifactId>animal-shelter-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>animal-shelter-api</name>
-	<description>animal-shelter-api</description>
+	<name>animal-shelter-service</name>
+	<description>animal-shelter-service</description>
 	<url/>
 	<licenses>
 		<license/>

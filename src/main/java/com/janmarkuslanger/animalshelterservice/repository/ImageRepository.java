@@ -1,6 +1,6 @@
-package com.janmarkuslanger.animalshelterapi.repository;
+package com.janmarkuslanger.animalshelterservice.repository;
 
-import com.janmarkuslanger.animalshelterapi.model.Image;
+import com.janmarkuslanger.animalshelterservice.model.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {}

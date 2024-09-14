@@ -1,4 +1,4 @@
-package com.janmarkuslanger.animalshelterapi.model;
+package com.janmarkuslanger.animalshelterservice.model;
 
 public enum AnimalType {
     DOG,

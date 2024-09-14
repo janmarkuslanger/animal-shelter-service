@@ -1,8 +1,8 @@
-package com.janmarkuslanger.animalshelterapi.controller;
+package com.janmarkuslanger.animalshelterservice.controller;
 
-import com.janmarkuslanger.animalshelterapi.model.Animal;
-import com.janmarkuslanger.animalshelterapi.service.AnimalService;
-import com.janmarkuslanger.animalshelterapi.service.VercelService;
+import com.janmarkuslanger.animalshelterservice.model.Animal;
+import com.janmarkuslanger.animalshelterservice.AnimalService;
+import com.janmarkuslanger.animalshelterservice.VercelService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

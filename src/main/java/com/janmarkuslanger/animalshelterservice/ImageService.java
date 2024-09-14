@@ -1,7 +1,7 @@
-package com.janmarkuslanger.animalshelterapi.service;
+package com.janmarkuslanger.animalshelterservice;
 
-import com.janmarkuslanger.animalshelterapi.model.Image;
-import com.janmarkuslanger.animalshelterapi.repository.ImageRepository;
+import com.janmarkuslanger.animalshelterservice.model.Image;
+import com.janmarkuslanger.animalshelterservice.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
