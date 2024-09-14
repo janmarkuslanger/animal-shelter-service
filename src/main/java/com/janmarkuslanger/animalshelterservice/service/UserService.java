@@ -11,15 +11,18 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User saveUser(User user) {
+    public Iterable<User> list() {
+        return userRepository.findAll();
+    }
+    public User create(User user) {
         return userRepository.save(user);
     }
 
-    public User getUser(Long id) {
+    public User get(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    public void deleteUser(Long id) {
+    public void delete(Long id) {
         userRepository.deleteById(id);
     }
 }

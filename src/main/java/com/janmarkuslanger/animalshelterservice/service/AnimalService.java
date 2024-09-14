@@ -11,23 +11,23 @@ public class AnimalService {
     @Autowired
     private AnimalRepository animalRepository;
 
-    public Iterable<Animal> listAnimals() {
+    public Iterable<Animal> list() {
         return animalRepository.findAll();
     }
 
-    public Animal getAnimal(Long id) {
+    public Animal get(Long id) {
         return animalRepository.findById(id).orElse(null);
     }
 
-    public Animal createAnimal(Animal animal) {
+    public Animal create(Animal animal) {
         return animalRepository.save(animal);
     }
 
-    public Animal updateAnimal(Animal animal) {
+    public Animal update(Animal animal) {
         return animalRepository.save(animal);
     }
 
-    public void deleteAnimal(Long id) {
+    public void delete(Long id) {
         animalRepository.deleteById(id);
     }
 }

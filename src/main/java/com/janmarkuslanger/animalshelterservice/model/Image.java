@@ -10,14 +10,15 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String url;
+
+    private String path;
     private String description;
 
     public Image() {
     }
 
-    public Image(String url, String description) {
-        this.url = url;
+    public Image(String path, String description) {
+        this.path = path;
         this.description = description;
     }
 
@@ -29,19 +30,19 @@ public class Image {
         this.id = id;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }

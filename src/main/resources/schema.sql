@@ -19,6 +19,14 @@ CREATE TABLE IF NOT EXISTS USERS (
     role VARCHAR(20) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS IMAGE (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    animal_id BIGINT,
+    path TEXT,
+    description TEXT,
+    FOREIGN KEY (animal_id) REFERENCES ANIMAL(id)
+);
+
 SELECT COUNT(*) FROM USERS;
 
 INSERT INTO USERS (username, password, role, email)
