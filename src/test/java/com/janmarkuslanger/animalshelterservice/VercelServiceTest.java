@@ -1,5 +1,6 @@
 package com.janmarkuslanger.animalshelterservice;
 
+import com.janmarkuslanger.animalshelterservice.service.VercelService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

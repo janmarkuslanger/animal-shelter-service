@@ -1,4 +1,4 @@
-package com.janmarkuslanger.animalshelterservice;
+package com.janmarkuslanger.animalshelterservice.service;
 
 import com.janmarkuslanger.animalshelterservice.model.Animal;
 import com.janmarkuslanger.animalshelterservice.repository.AnimalRepository;
