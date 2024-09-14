@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @OpenAPIDefinition(
-		servers = {@Server(url = "/")}
+		servers = {@Server(url = "/api")}
 )
 public class AnimalShelterServiceApplication {
 	public static void main(String[] args) {

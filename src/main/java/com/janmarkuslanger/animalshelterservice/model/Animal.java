@@ -17,17 +17,19 @@ public class Animal {
     private String description;
     private Boolean spayed;
     private String atShelterSince;
-
     private Boolean adopted = false;
 
-    private String image;
+    @OneToOne
+    @JoinTable(name="image")
+    @JoinColumn(name = "id")
+    private Image image;
 
-    @ElementCollection
-    private List<String> gallery;
+    @OneToMany(targetEntity = Image.class)
+    private List<Image> gallery;
 
     public Animal() {}
 
-    public Animal(Long id, String name, AnimalType type, String birthYear, Gender gender, String description, Boolean spayed, String atShelterSince, Boolean adopted, String image, List<String> gallery) {
+    public Animal(Long id, String name, AnimalType type, String birthYear, Gender gender, String description, Boolean spayed, String atShelterSince, Boolean adopted, Image image, List<Image> gallery) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -111,5 +113,14 @@ public class Animal {
 
     public void setAdopted(Boolean adopted) {
         this.adopted = adopted;
+    }
+
+
+    public List<Image> getGallery() {
+        return gallery;
+    }
+
+    public void setGallery(List<Image> gallery) {
+        this.gallery = gallery;
     }
 }
