@@ -38,14 +38,11 @@ public class ImageService {
         return null;
     }
 
-    private static File saveBase64ToFile(String base64, String filename) throws IOException {
+    private static File saveBase64ToFile(String base64, String path) throws IOException {
         byte[] decodedBytes = Base64.getDecoder().decode(base64);
-        File file = new File(filename);
-        String type = getImageType(base64);
+        File file = new File(path);
 
-        String path = file + "." + type;
-
-        try (FileOutputStream fos = new FileOutputStream(path)) {
+        try (FileOutputStream fos = new FileOutputStream(file)) {
             fos.write(decodedBytes);
         } catch (IOException e) {
             logger.error(String.valueOf(e));
@@ -55,8 +52,14 @@ public class ImageService {
 
     public Image upload(String base64, String fileName, String description) throws IOException {
         Image image = new Image();
+
+        String type = getImageType(base64);
+        String path = fileName + "." + type;
+        saveBase64ToFile(base64, path);
+
         image.setDescription(description);
-        saveBase64ToFile(base64, fileName);
+        image.setPath(path);
+
         return imageRepository.save(image);
     }
 
