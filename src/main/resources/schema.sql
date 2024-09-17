@@ -26,9 +26,3 @@ CREATE TABLE IF NOT EXISTS IMAGE (
     description TEXT,
     FOREIGN KEY (animal_id) REFERENCES ANIMAL(id)
 );
-
-SELECT COUNT(*) FROM USERS;
-
-INSERT INTO USERS (username, password, role, email)
-SELECT 'admin', 'admin', 'ADMIN', 'admin@admin'
-WHERE NOT EXISTS (SELECT 1 FROM USERS);
