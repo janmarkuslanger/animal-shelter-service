@@ -29,6 +29,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         final String authorizationHeader = request.getHeader("Authorization");
+        final String requestURI = request.getRequestURI();
+
+        if (requestURI.startsWith("/api/v1/authenticate")) {
+            chain.doFilter(request, response);
+            return;
+        }
 
         String username = null;
         String jwt = null;
@@ -50,8 +56,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                         userDetails, null, userDetails.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            } else {
+                logger.error("JWT Token validation failed");
             }
+        } else {
+            logger.error("Username is null or SecurityContext already contains authentication");
         }
+
         chain.doFilter(request, response);
     }
 }
