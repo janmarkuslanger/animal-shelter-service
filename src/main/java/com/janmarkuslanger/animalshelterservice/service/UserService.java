@@ -16,9 +16,14 @@ public class UserService {
     public Iterable<User> list() {
         return userRepository.findAll();
     }
+
     public User create(User user) {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(user.getPassword());
+        return userRepository.save(user);
+    }
+
+    public User update(User user) {
         return userRepository.save(user);
     }
 
