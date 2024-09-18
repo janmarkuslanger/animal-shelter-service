@@ -4,6 +4,7 @@ import com.janmarkuslanger.animalshelterservice.model.Animal;
 import com.janmarkuslanger.animalshelterservice.service.AnimalService;
 import com.janmarkuslanger.animalshelterservice.service.VercelService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,53 +22,43 @@ public class AnimalController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR', 'API')")
-    public Iterable<Animal> list() {
-        return animalService.list();
+    public ResponseEntity<Iterable<Animal>> list() {
+        return ResponseEntity.ok(animalService.list());
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR', 'API')")
     public Animal get(@PathVariable Long id) {
-        return animalService.get(id);
+        return ResponseEntity.ok(animalService.get(id)).getBody();
     }
 
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
-    public Animal create(@RequestBody Animal animal) {
+    public ResponseEntity<Animal> create(@RequestBody Animal animal) {
         Animal newAnimal = new Animal();
         animalService.create(newAnimal);
         vercelService.triggerDeployment();
-        return newAnimal;
+        return ResponseEntity.ok(newAnimal);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
-    public Animal update(@PathVariable Long id, @RequestBody Animal animal) {
+    public ResponseEntity<Animal> update(@PathVariable Long id, @RequestBody Animal animal) {
         Animal updatedAnimal = animalService.get(id);
 
         if (updatedAnimal == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Animal not found");
         }
-
-        updatedAnimal.setName(animal.getName());
-        updatedAnimal.setAdopted(animal.getAdopted());
-        updatedAnimal.setBirthYear(animal.getBirthYear());
-        updatedAnimal.setGallery(animal.getGallery());
-        updatedAnimal.setAtShelterSince(animal.getAtShelterSince());
-        updatedAnimal.setDescription(animal.getDescription());
-        updatedAnimal.setGender(animal.getGender());
-        updatedAnimal.setSpayed(animal.getSpayed());
-        updatedAnimal.setType(animal.getType());
-
-        animalService.update(updatedAnimal);
+        animalService.update(updatedAnimal, animal);
         vercelService.triggerDeployment();
-        return updatedAnimal;
+        return ResponseEntity.ok(updatedAnimal);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         animalService.delete(id);
         vercelService.triggerDeployment();
+        return ResponseEntity.ok("Animal deleted");
     }
 }

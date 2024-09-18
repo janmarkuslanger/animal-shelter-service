@@ -19,11 +19,14 @@ public class UserService {
 
     public User create(User user) {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(user.getPassword());
+        user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
-    public User update(User user) {
+    public User update(User user, User newUser) {
+        user.setUsername(newUser.getUsername());
+        user.setPassword(newUser.getPassword());
+        user.setRole(newUser.getRole());
         return userRepository.save(user);
     }
 

@@ -23,7 +23,16 @@ public class AnimalService {
         return animalRepository.save(animal);
     }
 
-    public Animal update(Animal animal) {
+    public Animal update(Animal animal, Animal newAnimal) {
+        animal.setName(newAnimal.getName());
+        animal.setAdopted(newAnimal.getAdopted());
+        animal.setBirthYear(newAnimal.getBirthYear());
+        animal.setGallery(newAnimal.getGallery());
+        animal.setAtShelterSince(newAnimal.getAtShelterSince());
+        animal.setDescription(newAnimal.getDescription());
+        animal.setGender(newAnimal.getGender());
+        animal.setSpayed(newAnimal.getSpayed());
+        animal.setType(newAnimal.getType());
         return animalRepository.save(animal);
     }
 

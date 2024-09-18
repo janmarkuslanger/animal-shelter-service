@@ -6,6 +6,7 @@ import com.janmarkuslanger.animalshelterservice.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,18 +23,18 @@ public class AnimalInquiry {
     private EmailService emailService;
 
     @Value("${animalshelter.inquiry.email}")
-    private String toEmail;
+    private String toEmail = "janmarkuslanger10121994@gmail.com";
 
-    @GetMapping("/send")
-    public String sendEmail(@RequestParam Long animalId, @RequestParam String name, @RequestParam String email, @RequestParam String message) {
+    @GetMapping(value = "/send")
+    public ResponseEntity<String> sendEmail(@RequestParam Long animalId, @RequestParam String name, @RequestParam String email, @RequestParam String message) {
         Animal animal = animalService.get(animalId);
 
         if (animal == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Animal not found");
+            return ResponseEntity.notFound().build();
         }
 
         if (name == null || name.isEmpty() || email == null || email.isEmpty() || message == null || message.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Name, email and message are required");
+            return ResponseEntity.badRequest().body("Name, email and message are required");
         }
 
         StringBuilder text = new StringBuilder();
@@ -51,7 +52,7 @@ public class AnimalInquiry {
                 .append(message);
 
         emailService.sendSimpleEmail(toEmail, "Tieranfrage", text.toString());
-        return "Email sent successfully!";
+        return ResponseEntity.ok("Email sent");
     }
 
 }

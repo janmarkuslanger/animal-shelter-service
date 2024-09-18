@@ -2,6 +2,7 @@ package com.janmarkuslanger.animalshelterservice.controller;
 
 import com.janmarkuslanger.animalshelterservice.model.User;
 import com.janmarkuslanger.animalshelterservice.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,19 +18,32 @@ public class UserController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
-    public Iterable<User> list() {
-        return userService.list();
+    public ResponseEntity<Iterable<User>> list() {
+        return ResponseEntity.ok(userService.list());
     }
 
     @GetMapping(value = "/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
-    public User get(Long id) {
-        return userService.get(id);
+    public ResponseEntity<User> get(Long id) {
+        return ResponseEntity.ok(userService.get(id));
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
+        User updatedUser = userService.get(id);
+
+        if (updatedUser == null) {
+            return ResponseEntity.notFound().build();
+        }
+        userService.update(updatedUser, user);
+        return ResponseEntity.ok(updatedUser);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         userService.delete(id);
+        return ResponseEntity.ok("User deleted");
     }
 }

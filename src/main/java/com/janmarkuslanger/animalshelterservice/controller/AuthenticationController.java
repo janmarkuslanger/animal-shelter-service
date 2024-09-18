@@ -3,6 +3,7 @@ package com.janmarkuslanger.animalshelterservice.controller;
 import com.janmarkuslanger.animalshelterservice.dto.AuthenticationRequest;
 import com.janmarkuslanger.animalshelterservice.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +23,7 @@ public class AuthenticationController {
     private UserDetailsService userDetailsService;
 
     @PostMapping("/api/v1/authenticate")
-    public String createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+    public ResponseEntity<String> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
 
@@ -33,7 +34,7 @@ public class AuthenticationController {
                 .orElse(null);
         final String jwt = jwtUtil.generateToken(userDetails.getUsername(), role);
 
-        return jwt;
+        return ResponseEntity.ok(jwt);
     }
 }
 
