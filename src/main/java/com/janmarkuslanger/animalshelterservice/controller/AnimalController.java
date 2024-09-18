@@ -16,7 +16,7 @@ public class AnimalController {
         this.vercelService = vercelService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public Iterable<Animal> list() {
         return animalService.list();
     }
@@ -26,7 +26,7 @@ public class AnimalController {
         return animalService.get(id);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public Animal create(@RequestBody Animal animal) {
         Animal newAnimal = new Animal();
         animalService.create(newAnimal);

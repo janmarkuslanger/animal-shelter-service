@@ -17,17 +17,17 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public Iterable<Image> list() {
         return imageService.list();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}")
     public Image get(Long id) {
         return imageService.get(id);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public Image create(@RequestBody ImageUploadRequest imageUploadRequest) throws IOException {
         return imageService.upload(imageUploadRequest.getBase64(), imageUploadRequest.getFilename(), imageUploadRequest.getDescription());
     }
