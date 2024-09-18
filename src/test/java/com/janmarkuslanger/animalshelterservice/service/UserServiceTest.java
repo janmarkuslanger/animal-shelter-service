@@ -57,6 +57,7 @@ class UserServiceTest {
         User newUser = new User();
         newUser.setUsername("UpdatedUsername");
         newUser.setPassword("UpdatedPassword");
+        newUser.setEmail("UpdatedEmail");
         newUser.setRole(Role.ADMIN);
         when(userRepository.save(user)).thenReturn(user);
 
@@ -64,6 +65,7 @@ class UserServiceTest {
 
         assertThat(result.getUsername()).isEqualTo("UpdatedUsername");
         assertThat(result.getPassword()).isEqualTo("UpdatedPassword");
+        assertThat(result.getEmail()).isEqualTo("UpdatedEmail");
         assertThat(result.getRole()).isEqualTo(Role.ADMIN);
     }
 
