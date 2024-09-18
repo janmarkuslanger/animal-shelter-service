@@ -14,7 +14,7 @@ public class UserInitializer {
     @Bean
     CommandLineRunner initUsers(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
-            if (userRepository.findByUsername("admin").isEmpty()) {
+            if (userRepository.findByUsername("admin").isEmpty() && userRepository.findAll().isEmpty()) {
                 User user = new User();
                 user.setUsername("admin");
                 user.setEmail("admin@admin.de");

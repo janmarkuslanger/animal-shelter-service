@@ -4,6 +4,7 @@ import com.janmarkuslanger.animalshelterservice.model.Animal;
 import com.janmarkuslanger.animalshelterservice.service.AnimalService;
 import com.janmarkuslanger.animalshelterservice.service.VercelService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -19,16 +20,19 @@ public class AnimalController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR', 'API')")
     public Iterable<Animal> list() {
         return animalService.list();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR', 'API')")
     public Animal get(@PathVariable Long id) {
         return animalService.get(id);
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
     public Animal create(@RequestBody Animal animal) {
         Animal newAnimal = new Animal();
         animalService.create(newAnimal);
@@ -37,6 +41,7 @@ public class AnimalController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
     public Animal update(@PathVariable Long id, @RequestBody Animal animal) {
         Animal updatedAnimal = animalService.get(id);
 
@@ -60,6 +65,7 @@ public class AnimalController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
     public void delete(@PathVariable Long id) {
         animalService.delete(id);
         vercelService.triggerDeployment();
